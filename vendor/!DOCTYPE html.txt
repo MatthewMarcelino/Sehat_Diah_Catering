@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sehat Diah Catering - Sidebar Instagram Style</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/sauce-tomato" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#10B981',
+            dark: '#1F2937',
+            dark2: '#111827'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html, body {
+      overflow-y: auto;
+      scroll-behavior: smooth;
+      height: 100%;
+    }
+    
+    body {
+      min-height: 100vh;
+      background-color: #F5F5F5;
+      overflow-x: hidden; /* Penting agar tidak scroll horizontal */
+    }
+    
+    .font-poppins {
+      font-family: 'Sauce Tomato', sans-serif;  
+    } 
+    
+    .tooltip {
+      position: relative;
+    }
+    
+    .tooltip:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0,0,0,0.8);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      white-space: nowrap;
+      z-index: 100;
+      margin-left: 10px;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .sidebar-collapsed {
+      width: 80px !important;
+    }
+    
+    .sidebar-collapsed .logo-text,
+    .sidebar-collapsed .menu-text,
+    .sidebar-collapsed .search-container,
+    .sidebar-collapsed .color-option-text {
+      display: none;
+    }
+    
+    .sidebar-collapsed .toggle-icon {
+      transform: rotate(180deg);
+    }
+    
+    .sidebar-collapsed .color-options {
+      justify-content: center;
+    }
+    .color-option {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      margin: 0 4px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    
+    .color-option:hover {
+      transform: scale(1.1);
+    }
+    
+    .search-container {
+      position: relative;
+      margin: 16px;
+    }
+    
+    .search-input {
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 8px 16px 8px 40px;
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .search-input:focus {
+      background-color: rgba(255, 255, 255, 0.15);
+      outline: none;
+      border-color: #10B981;
+    }
+    
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .search-icon-collapsed {
+      display: none;
+      position: relative;
+      margin: 16px auto;
+      width: fit-content;
+    }
+    
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #1F2937;
+      border-radius: 8px;
+      margin-top: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      max-height: 300px;
+      overflow-y: auto;
+      z-index: 100;
+      display: none;
+    }
+    
+    .search-results.visible {
+      display: block;
+    }
+    
+    .search-result-item {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .search-result-item:last-child {
+      border-bottom: none;
+    }
+    
+    .search-result-item:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .highlight {
+      background-color: rgba(16, 185, 129, 0.3);
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    
+    /* PERBAIKAN UTAMA: MAIN CONTENT */
+    #main-content {
+      flex: 1;
+      margin-left: 256px;
+      min-height: 100vh;
+      transition: margin-left 0.5s, width 0.5s;
+      width: calc(100% - 256px);
+    }
+  
+    
+    /* Style untuk konten halaman */
+    .page {
+      width: 100%;
+      min-height: 100vh;
+      padding: 2rem;
+      display: none;
+    }
+    
+    .page.active {
+      display: block;
+    }
+    
+
+    /* Style untuk halaman lain */
+    .page-header {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #1F2937;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #10B981;
+    }
+    
+    .section {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);  
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+      /* ===== RESPONSIVE DESIGN ===== */
+    /* Bottom Navbar untuk Mobile */
+    .bottom-navbar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #393E46;
+      height: 70px;
+      z-index: 1000;
+      padding: 0 10px;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+    }
+    
+    .nav-icons {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+    }
+    
+    .nav-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+      text-decoration: none;
+      padding: 8px;
+      border-radius: 8px;
+      transition: background 0.3s;
+      flex: 1;
+      max-width: 70px;
+    }
+    
+    .nav-icon.active {
+      background: rgba(255,255,255,0.1);
+    }
+    
+    .nav-icon i {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+    
+    .nav-icon span {
+      font-size: 10px;
+      text-align: center;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 1000px) {
+      #sidebar {
+        display: none; /* Sembunyikan sidebar di mobile */
+      }
+      .bottom-navbar {
+        display: flex;
+      }
+      
+      /* Penyesuaian layout untuk mobile */
+      .font-poppins {
+        font-size: 2.5rem !important;
+      }
+      
+      .text-large {
+        font-size: 1rem;
+      }
+      
+      .page {
+        padding: 1rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .pl-80 {
+        padding-left: 1rem;
+      }
+      
+      .pt-40 {
+        padding-top: 2rem;
+      }
+      
+      .text-8xl {
+        font-size: 3rem;
+      }
+      
+      .text-6xl {
+        font-size: 2.5rem;
+      }
+      
+      .md\:pl-56 {
+        padding-left: 1rem;
+      }
+      
+      .flex-col {
+        flex-direction: column;
+      }
+      
+      .md\:w-1\/2 {
+        width: 100%;
+      }
+      
+      .bg-cover {
+        background-size: auto 100%;
+        background-position: center;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .text-8xl {
+        font-size: 2rem;
+      }
+      
+      .text-6xl {
+        font-size: 1.8rem;
+      }
+      
+      .nav-icon span {
+        font-size: 9px;
+      }
+      
+      .nav-icon i {
+        font-size: 18px;
+      }
+      
+      .bottom-navbar {
+        height: 60px;
+      }
+    }
+    @media (max-width: 1024px) {
+  #dashboard .ml-60 {
+    margin-left: 1rem !important;
+    margin-top: 2rem !important;
+  }
+}
+  </style>
+</head>
+<body >
+  <!-- Sidebar -->
+  <aside id="sidebar" class="fixed w-64 bg-[#393E46] text-gray-200 flex flex-col transition-all duration-500 h-full top-0 left-0 z-10">
+    <!-- Toggle Button -->
+    <button id="toggleSidebar" class="absolute -right-3 top-6 bg-white rounded-full p-1 shadow-md z-10">
+      <svg class="w-5 h-5 text-gray-700 toggle-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+    </button>
+
+    <!-- Logo -->
+    <div class="flex items-center justify-center h-20 border-b border-gray-700">
+      <div class="flex items-center">
+        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center">
+          <i class="text-white text-xl">
+            <img src="asset/logojadi.png" alt="" srcset="">
+          </i>
+        </div>
+        <h1 class="text-lg font-bold text-white ml-2 logo-text">Sehat Diah Catering</h1>
+      </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+      <div class="relative">
+        <input 
+          type="text" 
+          id="searchInput" 
+          class="search-input" 
+          placeholder="Cari menu..."
+          autocomplete="off"
+        >
+        <div class="search-icon">
+          <i class="fas fa-search"></i>
+        </div>
+        <div id="searchResults" class="search-results">
+          <!-- Hasil pencarian akan muncul di sini -->
+        </div>
+      </div>
+    </div>
+    
+    <div id="searchIconCollapsed" class="search-icon-collapsed tooltip" data-tooltip="Cari Menu">
+      <button class="p-2 rounded-lg hover:bg-gray-800 transition">
+        <i class="fas fa-search text-xl"></i>
+      </button>
+    </div>
+
+    <!-- Menu -->
+    <nav class="flex flex-col mt-2 space-y-1 flex-grow">
+      <a href="#dashboard" class="flex items-center px-4 py-3 hover:bg-gray-800 transition group tooltip menu-link active" data-tooltip="Dashboard">
+        <i class="fa-solid fa-home text-[#06923E] text-lg w-6 h-6 flex items-center justify-center bg"></i>
+        <span class="ml-3 menu-text">Dashboard</span>
+      </a>
+
+      <a href="#paket" class="flex items-center px-4 py-3 hover:bg-gray-800 transition group tooltip menu-link" data-tooltip="Paket">
+        <i class="fa-solid fa-boxes-packing text-[#06923E] text-lg w-6 h-6 flex items-center justify-center"></i>
+        <span class="ml-3 menu-text">Paket</span>
+      </a>
+
+      <a href="#menu" class="flex items-center px-4 py-3 hover:bg-gray-800 transition group tooltip menu-link" data-tooltip="Menu">
+        <i class="fa-solid fa-utensils text-[#06923E] text-lg w-6 h-6 flex items-center justify-center"></i>
+        <span class="ml-3 menu-text">Menu</span>
+      </a>
+
+      <a href="#promo" class="flex items-center px-4 py-3 hover:bg-gray-800 transition group tooltip menu-link" data-tooltip="Promo">
+        <i class="fa-solid fa-percent text-[#06923E] text-lg w-6 h-6 flex items-center justify-center"></i>
+        <span class="ml-3 menu-text">Promo</span>
+      </a>
+
+      <a href="#pengiriman" class="flex items-center px-4 py-3 hover:bg-gray-800 transition group tooltip menu-link" data-tooltip="Pengiriman">
+        <i class="fa-solid fa-truck-fast text-[#06923E] text-lg w-6 h-6 flex items-center justify-center"></i>
+        <span class="ml-3 menu-text">Pengiriman</span>
+      </a>
+
+      <a href="#testimoni" class="flex items-center px-4 py-3 hover:bg-gray-800 transition group tooltip menu-link" data-tooltip="Testimoni">
+        <i class="fa-solid fa-comments text-[#06923E] text-lg w-6 h-6 flex items-center justify-center"></i>
+        <span class="ml-3 menu-text">Testimoni</span>
+      </a>
+
+      <a href="#donation" class="flex items-center px-4 py-3 hover:bg-gray-800 transition group tooltip menu-link" data-tooltip="Donasi">
+        <i class="fa-solid fa-hand-holding-heart text-[#06923E] text-lg w-6 h-6 flex items-center justify-center"></i>
+        <span class="ml-3 menu-text">Donasi</span>
+      </a>
+    </nav>
+
+    <a href="#contact" class="flex items-center px-4 py-3 hover:bg-gray-800 transition group tooltip mb-12 menu-link" data-tooltip="Contact Us">
+      <i class="fa-brands fa-whatsapp text-[#06923E] text-2xl w-8 h-8 flex items-center justify-center"></i>
+      <span class="ml-3 menu-text text-2xl">Contact Us</span>
+    </a>
+  </aside>
+
+  <!-- Main Content -->
+  <div id="main-content">
+    <section id="dashboard" class="page active relative bg-cover bg-center bg-no-repeat" style="background-image: url('asset/back1jpg.jpg');">
+      <div class="m-4"> 
+        <div class="ml-60 mt-40">
+          <h2 class="font-poppins ml-4 text-white text-2xl md:text-8xl">Sehat Diah Catering</h2>
+          <p class="mt-8 font-semibold leading-relaxed text-large text-white/90">
+            Dengan pengalaman dalam menyediakan layanan boga sehat, kami<br> 
+            berkomitmen untuk menghadirkan hidangan yang halalan thoyyiban,<br> 
+            berkualitas, higienis, dan tentunya lezat. Semua menu disusun<br> 
+            bersama ahli gizi dan dimasak dengan bahan-bahan pilihan terbaik.<br> 
+            Kami percaya, makanan bukan hanya tentang rasa— <br>
+            tetapi juga tentang kesehatan, cinta, dan keberkahan yang dibagikan dalam setiap sajian.
+          </p>
+        </div> 
+      </div>
+    </section>
+
+    <section class="bg-white py-20 px-10">
+  <div class="flex flex-col md:flex-row items-start gap-10">
+
+    <!-- Kolom Kiri: About Us -->
+    <div class="md:w-1/2 pl-0 md:ml-40">
+      <h3 class="text-xl font-bold text-red-500 mb-6">About Us</h3> 
+      <h2 class="font-poppins text-gray-700 text-2xl md:text-6xl">selamat Datang di <br>Sehat Diah Catering</h2>
+      <div class="mt-5">
+        <p class="text-gray-500 font-semibold">
+          Kami memahami bahwa pola makan sehat adalah kebutuhan setiap orang, <br>
+          itulah sebabnya layanan kami dirancang fleksibel untuk menjangkau berbagai<br> 
+          kalangan—mulai dari keluarga, kantor, hingga aktivitas harian yang sibuk.
+        </p>
+        <p class="mt-5 text-gray-500 font-semibold">
+          Dari pemilihan bahan segar hingga proses pengemasan, <br> 
+          kami berkomitmen untuk memberikan layanan yang bukan <br> hanya praktis,
+          tetapi juga penuh perhatian terhadap gizi dan kebersihan. <br>
+          Sehat Diah hadir untuk membantu setiap pelanggan menjaga <br>
+          kesehatan tanpa mengorbankan rasa dan kenyamanan.
+        </p>
+        <p class="mt-5 text-gray-500 font-semibold">
+          Bagi kami di Sehat Diah, memasak bukan sekadar urusan dapur, <br>
+          tetapi wujud cinta dan kepedulian. Karena itu, kami ingin menjadi <br>
+          bagian dari perjalanan sehat Anda. Hubungi kami, dan mari ciptakan <br>
+          momen makan yang lezat, bergizi, dan penuh keberkahan setiap harinya.
+        </p>
+      </div>
+    </div>
+
+    <!-- Kolom Kanan: Gambar Promo -->
+    <div class="md:w-1/2 flex justify-center">
+      <img src="asset/promo.jpg" alt="Promo Sehat Diah" class="w-full max-w- rounded-xl shadow-lg">
+    </div>
+
+      </div>
+    </section>
+
+    <!-- Tambahkan halaman lain di sini -->
+  </div>
+  <nav class="bottom-navbar">
+    <div class="nav-icons">
+      <a href="#dashboard" class="nav-icon active" data-target="dashboard">
+        <i class="fa-solid fa-home text-[#06923E]"></i>
+        <span>Home</span>
+      </a>
+      
+      <a href="#paket" class="nav-icon" data-target="paket">
+        <i class="fa-solid fa-boxes-packing text-[#06923E]"></i>
+        <span>Paket</span>
+      </a>
+      
+      <a href="#menu" class="nav-icon" data-target="menu">
+        <i class="fa-solid fa-utensils text-[#06923E]"></i>
+        <span>Menu</span>
+      </a>
+      
+      <a href="#promo" class="nav-icon" data-target="promo">
+        <i class="fa-solid fa-percent text-[#06923E]"></i>
+        <span>Promo</span>
+      </a>
+      
+      <a href="#contact" class="nav-icon" data-target="contact">
+        <i class="fa-brands fa-whatsapp text-[#06923E]"></i>
+        <span>Contact</span>
+      </a>
+    </div>
+  </nav>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const sidebar = document.getElementById('sidebar');
+  const toggleBtn = document.getElementById('toggleSidebar');
+  const navIcons = document.querySelectorAll('.nav-icon');
+  const pages = document.querySelectorAll('.page');
+  const searchInput = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
+  const searchIconCollapsed = document.getElementById('searchIconCollapsed');
+
+  // ========== TOGGLE SIDEBAR ==========
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', function() {
+      sidebar.classList.toggle('sidebar-collapsed');
+    });
+  }
+
+  // ========== TOGGLE SIDEBAR from collapsed search ==========
+  searchIconCollapsed.addEventListener('click', function() {
+    if (sidebar.classList.contains('sidebar-collapsed')) {
+      sidebar.classList.remove('sidebar-collapsed');
+    }
+    searchInput.focus();
+  });
+
+  // ========== SEARCH ==========
+  const menuData = [
+    { day: 'Senin', items: 'Nasi Liwet, Ayam Goreng, Tahu Tempe Bacem, Sayur Asem, Sambal, Buah' },
+    { day: 'Selasa', items: 'Nasi Putih, Ikan Bakar, Tumis Kangkung, Perkedel Kentang, Sambal, Buah' },
+    { day: 'Rabu', items: 'Nasi Uduk, Rendang Daging, Telur Balado, Lalapan, Sambal, Buah' },
+    { day: 'Kamis', items: 'Nasi Kuning, Ayam Pop, Capcay, Sambal Ijo, Buah' },
+    { day: 'Jumat', items: 'Nasi Putih, Cumi Asam Manis, Oseng Buncis, Tahu, Sambal, Buah' },
+    { day: 'Sabtu', items: 'Nasi Goreng Seafood, Bakwan Jagung, Acar, Buah' }
+  ];
+
+  function searchMenu(query) {
+    searchResults.innerHTML = '';
+
+    if (!query.trim()) {
+      searchResults.classList.remove('visible');
+      return;
+    }
+
+    const results = menuData.filter(item =>
+      item.day.toLowerCase().includes(query.toLowerCase()) ||
+      item.items.toLowerCase().includes(query.toLowerCase())
+    );
+
+    if (results.length === 0) {
+      searchResults.innerHTML = `<div class="search-result-item text-center py-4"><p>Menu tidak ditemukan</p></div>`;
+      searchResults.classList.add('visible');
+      return;
+    }
+
+    results.forEach(result => {
+      const highlightedItems = highlightMatches(result.items, query);
+      const highlightedDay = highlightMatches(result.day, query);
+      const resultItem = document.createElement('div');
+      resultItem.className = 'search-result-item';
+      resultItem.innerHTML = `<div class="font-bold text-primary">${highlightedDay}</div><div class="text-sm mt-1">${highlightedItems}</div>`;
+
+      resultItem.addEventListener('click', function() {
+        const dayElement = document.querySelector(`[data-menu*="${result.day.toLowerCase()}"]`);
+        if (dayElement) {
+          dayElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          dayElement.style.transition = 'all 0.3s';
+          dayElement.style.boxShadow = '0 0 0 3px rgba(16, 185, 129, 0.5)';
+          setTimeout(() => dayElement.style.boxShadow = '', 2000);
+        }
+
+        searchInput.value = '';
+        searchResults.classList.remove('visible');
+      });
+
+      searchResults.appendChild(resultItem);
+    });
+
+    searchResults.classList.add('visible');
+  }
+
+  function highlightMatches(text, query) {
+    if (!query) return text;
+    const regex = new RegExp(query, 'gi');
+    return text.replace(regex, match => `<span class="highlight">${match}</span>`);
+  }
+
+  searchInput.addEventListener('input', function() {
+    searchMenu(this.value);
+  });
+
+  searchInput.addEventListener('focus', function() {
+    if (this.value.trim()) {
+      searchResults.classList.add('visible');
+    }
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.search-container') && !e.target.closest('#searchResults')) {
+      searchResults.classList.remove('visible');
+    }
+  });
+
+  // ========== BOTTOM NAVIGATION ==========
+  navIcons.forEach(icon => {
+    icon.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = this.getAttribute('data-target');
+      navIcons.forEach(i => i.classList.remove('active'));
+      this.classList.add('active');
+      pages.forEach(page => page.classList.remove('active'));
+      document.getElementById(target).classList.add('active');
+      window.scrollTo(0, 0);
+    });
+  });
+
+  // ========== RESPONSIVE BACKGROUND ==========
+  function adjustBackground() {
+    const dashboardSection = document.getElementById('dashboard');
+    if (dashboardSection && window.innerWidth < 768) {
+      dashboardSection.style.backgroundSize = "auto 100%";
+    }
+  }
+
+  adjustBackground();
+  window.addEventListener('resize', adjustBackground);
+
+  // ========== CLOSE SIDEBAR ON MOBILE ==========
+  const menuLinks = document.querySelectorAll('.menu-link');
+  menuLinks.forEach(link => {
+    link.addEventListener('click', function() {
+      if (window.innerWidth < 1000) {
+        sidebar.classList.remove('sidebar-collapsed');
+      }
+    });
+  });
+});
+  </script>
+</body>
+</html> jika side bar di buka lalu di tutup terdapat sebuah block seperti di foto berwarna putih ber ukuran sama dengan side bar dan jika di buka di ukuran mobile atau di ukuran selain desktop tetap membekas sama seperti di foto dengan ukuran side bar yang sama tolong benarkan dan fix it tanpa merubah code saya atau aset sayaa

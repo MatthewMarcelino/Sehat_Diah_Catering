@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sehat Diah Catering</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2c7744',
+                        secondary: '#5aaf70',
+                        accent: '#e74c3c',
+                        dark: '#2c3e50',
+                        light: '#f8f9fa'
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Mobile menu animation */
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        /* Mobile menu overlay */
+        .mobile-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .mobile-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Prevent scrolling when mobile menu is open */
+        body.menu-open {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen bg-gray-50">
+    <!-- Mobile Menu Button (visible only on small screens) -->
+    <div class="lg:hidden fixed top-4 left-4 z-50">
+        <button id="mobileMenuButton" class="w-12 h-12 bg-primary text-white rounded-full shadow-lg flex items-center justify-center">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+    </div>
+    
+    <!-- Mobile Menu Overlay -->
+    <div id="mobileOverlay" class="mobile-overlay fixed inset-0 bg-black/50 z-40"></div>
+    
+    <!-- Sidebar -->
+    <aside id="sidebar" class="mobile-menu w-64 bg-gradient-to-br from-primary to-secondary text-white fixed left-0 top-0 h-screen flex flex-col shadow-xl z-50 lg:translate-x-0">
+        <div class="flex items-center justify-between h-20 border-b border-white/20 px-4">
+            <div class="flex items-center">
+                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center">
+                    <img src="asset/img/logo/logojadi.png" alt="Logo" class="w-8 h-8">
+                </div>
+                <h1 class="text-lg font-bold ml-3">Sehat Diah Catering</h1>
+            </div>
+            <button id="closeMobileMenu" class="lg:hidden text-white">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <ul class="flex-1 py-4">
+            <li class="mx-2 my-1">
+                <a href="dashboard.html" class="flex items-center px-5 py-3 text-white/90 hover:bg-white/10 hover:text-white rounded-lg transition-all duration-300 pl-6 active">
+                    <i class="fas fa-home w-6 text-center mr-3"></i> Dashboard
+                </a>
+            </li>
+            <li class="mx-2 my-1">
+                <a href="menu.html" class="flex items-center px-5 py-3 text-white/90 hover:bg-white/10 hover:text-white rounded-lg transition-all duration-300 pl-6">
+                    <i class="fas fa-utensils w-6 text-center mr-3"></i> Menu
+                </a>
+            </li>
+            <li class="mx-2 my-1">
+                <a href="paket.html" class="flex items-center px-5 py-3 text-white/90 hover:bg-white/10 hover:text-white rounded-lg transition-all duration-300 pl-6">
+                    <i class="fas fa-box w-6 text-center mr-3"></i> Paket
+                </a>
+            </li>
+            <li class="mx-2 my-1">
+                <a href="promo.html" class="flex items-center px-5 py-3 text-white/90 hover:bg-white/10 hover:text-white rounded-lg transition-all duration-300 pl-6">
+                    <i class="fas fa-percentage w-6 text-center mr-3"></i> Promo
+                </a>
+            </li>
+            <li class="mx-2 my-1">
+                <a href="pengiriman.html" class="flex items-center px-5 py-3 text-white/90 hover:bg-white/10 hover:text-white rounded-lg transition-all duration-300 pl-6">
+                    <i class="fas fa-truck w-6 text-center mr-3"></i> Pengiriman
+                </a>
+            </li>
+            <li class="mx-2 my-1">
+                <a href="testimoni.html" class="flex items-center px-5 py-3 text-white/90 hover:bg-white/10 hover:text-white rounded-lg transition-all duration-300 pl-6">
+                    <i class="fas fa-comment w-6 text-center mr-3"></i> Testimoni
+                </a>
+            </li>
+            <li class="mx-2 my-1">
+                <a href="donasi.html" class="flex items-center px-5 py-3 text-white/90 hover:bg-white/10 hover:text-white rounded-lg transition-all duration-300 pl-6">
+                    <i class="fas fa-hand-holding-heart w-6 text-center mr-3"></i> Donasi
+                </a>
+            </li>
+        </ul>
+        
+        <div class="py-5 px-4 text-center border-t border-white/20 mt-auto">
+            <a href="#" class="inline-block bg-white text-primary px-6 py-2 rounded-full font-semibold shadow-md hover:bg-gray-100 hover:shadow-lg transition-all duration-300">
+                Contact Us
+            </a>
+        </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="flex-1 lg:ml-64 transition-all duration-300">
+
+        <!-- Footer -->
+        <footer class="bg-dark text-white py-10 md:py-12 px-4 md:px-10">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+                <div>
+                    <h3 class="text-lg md:text-xl font-bold mb-3 md:mb-4">Sehat Diah Catering</h3>
+                    <p class="text-gray-300 text-sm md:text-base">Menyediakan layanan catering sehat dengan bahan-bahan pilihan terbaik untuk kesehatan keluarga Anda.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-base md:text-lg font-bold mb-3 md:mb-4">Kontak Kami</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-3 text-primary"></i>
+                            <span class="text-sm md:text-base">Jl. Sejahtera No. 123, Jakarta</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3 text-primary"></i>
+                            <span class="text-sm md:text-base">(021) 1234-5678</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-primary"></i>
+                            <span class="text-sm md:text-base">info@sehatdiah.com</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-base md:text-lg font-bold mb-3 md:mb-4">Jam Operasional</h4>
+                    <ul class="space-y-2 text-gray-300 text-sm md:text-base">
+                        <li>Senin - Jumat: 08:00 - 20:00</li>
+                        <li>Sabtu: 08:00 - 18:00</li>
+                        <li>Minggu & Hari Besar: Tutup</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-base md:text-lg font-bold mb-3 md:mb-4">Ikuti Kami</h4>
+                    <div class="flex space-x-3 md:space-x-4">
+                        <a href="#" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/20 flex items-center justify-center hover:bg-primary/40 transition-all">
+                            <i class="fab fa-facebook-f text-sm md:text-base"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/20 flex items-center justify-center hover:bg-primary/40 transition-all">
+                            <i class="fab fa-instagram text-sm md:text-base"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/20 flex items-center justify-center hover:bg-primary/40 transition-all">
+                            <i class="fab fa-whatsapp text-sm md:text-base"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/20 flex items-center justify-center hover:bg-primary/40 transition-all">
+                            <i class="fab fa-youtube text-sm md:text-base"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="max-w-7xl mx-auto border-t border-gray-700 mt-8 pt-5 text-center text-gray-400 text-sm md:text-base">
+                <p>© 2023 Sehat Diah Catering. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </main>
+        
+    <script>
+        // Mobile menu functionality
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const sidebar = document.getElementById('sidebar');
+        const body = document.body;
+        
+        function openMobileMenu() {
+            sidebar.classList.add('active');
+            mobileOverlay.classList.add('active');
+            body.classList.add('menu-open');
+        }
+        
+        function closeMobileMenuFunc() {
+            sidebar.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            body.classList.remove('menu-open');
+        }
+        
+        mobileMenuButton.addEventListener('click', openMobileMenu);
+        closeMobileMenu.addEventListener('click', closeMobileMenuFunc);
+        mobileOverlay.addEventListener('click', closeMobileMenuFunc);
+        
+        // Close mobile menu when clicking on any link inside it
+        document.querySelectorAll('#sidebar a').forEach(link => {
+            link.addEventListener('click', closeMobileMenuFunc);
+        });
+        
+        // Simulate active state for demo purposes
+        document.querySelectorAll('.menu a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector('.menu a.active')?.classList.remove('active');
+                this.classList.add('active');
+            });
+        });
+        
+        // Mobile menu active state
+        document.querySelectorAll('.bottom-navbar a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector('.bottom-navbar a.text-primary')?.classList.remove('text-primary');
+                document.querySelector('.bottom-navbar a.text-primary')?.classList.add('text-gray-500');
+                this.classList.remove('text-gray-500');
+                this.classList.add('text-primary');
+            });
+        });
+    </script>
+</body>
+</html>
