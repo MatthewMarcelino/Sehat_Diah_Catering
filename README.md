@@ -1,33 +1,35 @@
-﻿# Sehat Diah Catering
+Sehat Diah Catering
 
-**⚠️ Peringatan: Website ini masih dalam tahap pengembangan. Beberapa fitur atau halaman mungkin belum final atau belum berfungsi sepenuhnya.**
+Website resmi Sehat Diah Catering, layanan catering sehat yang mengutamakan kualitas bahan, gizi seimbang, dan pelayanan profesional. Dibuat dengan HTML, Tailwind CSS, dan Font Awesome. Desainnya modern, responsif, dan user-friendly.
 
-Website resmi **Sehat Diah Catering**, layanan catering sehat yang mengutamakan kualitas bahan, gizi seimbang, dan pelayanan profesional. Website ini dibuat menggunakan **HTML**, **Tailwind CSS**, dan **Font Awesome** untuk ikon. Desainnya modern, responsif, dan user-friendly.
+Fitur Utama
 
-## Fitur Utama (Dalam Pengembangan)
+Dashboard / Hero Section: Tampilan awal menarik dengan informasi singkat tentang layanan.
 
-- **Dashboard / Hero Section**: Tampilan awal menarik dengan informasi singkat tentang layanan.
-- **About Us**: Penjelasan visi dan misi Sehat Diah Catering.
-- **Menu & Paket**: Informasi menu harian dan paket catering (sedang dikembangkan).
-- **Promo**: Diskon dan promo menarik bagi pelanggan baru (akan diperbarui).
-- **Pengiriman**: Layanan pengiriman makanan tepat waktu (fitur masih dalam uji coba).
-- **Testimoni Pelanggan**: Feedback pelanggan untuk meningkatkan kepercayaan.
-- **Donasi & Kontak**: Informasi donasi dan kontak mudah dijangkau.
-- **Responsive Sidebar**: Navigasi sidebar yang bisa dibuka di mobile dengan animasi smooth.
-- **Footer Lengkap**: Informasi kontak, jam operasional, dan media sosial.
+About Us: Penjelasan visi dan misi Sehat Diah Catering.
 
-## Teknologi yang Digunakan
+Menu & Paket: Informasi lengkap menu harian dan paket catering.
 
-- [HTML5](https://developer.mozilla.org/en-US/docs/Web/HTML)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Font Awesome](https://fontawesome.com/)
-- Google Fonts: [Poppins](https://fonts.google.com/specimen/Poppins)
-- Vanilla JavaScript untuk interaktivitas menu mobile
+Promo: Diskon dan promo menarik bagi pelanggan.
 
-## Cara Menjalankan
+Pengiriman: Layanan pengiriman makanan cepat dan tepat waktu.
 
-1. Clone repo ini:
-   `ash
-   git clone https://github.com/MatthewMarcelino/Sehat_Diah_Catering
+Testimoni Pelanggan: Feedback pelanggan untuk meningkatkan kepercayaan.
 
+Donasi & Kontak: Informasi donasi dan kontak mudah dijangkau.
 
+Responsive Sidebar: Navigasi sidebar yang bisa dibuka di mobile dengan animasi smooth.
+
+Footer Lengkap: Informasi kontak, jam operasional, dan media sosial.
+
+Teknologi yang Digunakan
+
+HTML5
+
+Tailwind CSS
+
+Font Awesome
+
+Google Fonts: Poppins
+
+Vanilla JavaScript untuk interaktivitas menu mobile
